@@ -1,0 +1,3 @@
+[submodule "gbf.wiki-data"]
+	path = gbf.wiki-data
+	url = git@github.com:59naga/gbf.wiki-data.git

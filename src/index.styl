@@ -1,0 +1,46 @@
+@import 'sanitize.styl'
+@import 'stylus-responsive-breakpoints'
+
+sanitize()
+
+#simulator
+  position relative
+  margin-top 3em
+#banner
+  position fixed
+  top 0
+  right 0
+  left 0
+
+  background white
+
+body
+  position relative
+
+header
+footer
+  text-align right
+
+form
+  h2:nth-child(n+2)
+    margin-top .4em
+
+li
+  display inline-block
+
+  img
+    +srb-landscape()
+      width 12.5vw
+
+    +srb-portrait()
+      width 20vw
+
+label
+  display inline-block
+
+  span
+    display inline-block
+    margin 0 .25em
+
+button
+  cursor pointer
