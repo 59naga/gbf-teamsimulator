@@ -1,6 +1,6 @@
 import { createStore, compose } from 'redux';
 import update from 'react-addons-update';
-import characters from '../gbf.wiki-data/dist/characters.json';
+import characters from '../gbf.wiki-data/dist/charas.json';
 
 import { rarities, races } from './defines';
 
