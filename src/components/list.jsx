@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _filter from 'lodash.filter';
 
+import upperCase from 'upper-case';
 import ReactModal from 'react-modal';
 
 import { elements, weapons, rarities, races } from '../defines';
 import AllCheckbox from './all-checkbox';
 import Checkbox from './checkbox';
 
+const title = `${upperCase(NAME).replace(/-/g, ' ')} v${VERSION}`;
 function getChosen(query = {}) {
   return {
     elements: query.element ? query.element.split(',') : [],
@@ -21,7 +23,7 @@ function getChosen(query = {}) {
 class List extends React.Component {
   constructor() {
     super();
-    this.state = { showModal: true };
+    this.state = { showModal: false };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
@@ -61,44 +63,47 @@ class List extends React.Component {
     return (
       <div id="simulator">
         <header id="banner">
-          <h1>GBF TEAM SIMULATOR v0.0.1</h1>
-          <footer>
-            <button onClick={this.handleOpenModal}>○ Open Search</button>
-          </footer>
+          <h1><button onClick={this.handleOpenModal}>{title}</button></h1>
         </header>
         <ReactModal
-          isOpen={this.state.showModal}
           ariaHideApp={false}
+          isOpen={this.state.showModal}
           onRequestClose={this.handleCloseModal}
           shouldCloseOnOverlayClick
         >
-          <form>
-            <header>
-              <button onClick={this.handleCloseModal}>☓ Close Search</button>
-            </header>
-            <h2>Rarity</h2>
-            <div>
-              <AllCheckbox type="rarity" value={rarities.join(',')} />
-              {rarities.map(value => <Checkbox type="rarity" key={value} value={value} />)}
-            </div>
-            <h2>Element</h2>
-            <div>
-              <AllCheckbox type="element" value={elements.join(',')} />
-              {elements.map(value => <Checkbox type="element" key={value} value={value} />)}
-            </div>
-            <h2>Weapon</h2>
-            <div>
-              <AllCheckbox type="weapon" value={weapons.join(',')} />
-              {weapons.map(value => <Checkbox type="weapon" key={value} value={value} />)}
-            </div>
-            <h2>Race</h2>
-            <div>
-              <AllCheckbox type="race" value={races.join(',')} />
-              {races.map(value => <Checkbox type="race" key={value} value={value} />)}
-            </div>
-            <footer>{found.length ? `${found.length} character found` : 'no results found'}</footer>
-          </form>
+          <header>
+            <button onClick={this.handleCloseModal}>☓ Close</button>
+            <h1>{title}</h1>
+            <p>得意武器検索めんどくさいから作った</p>
+            <p>
+              開発者:
+              <a href="https://twitter.com/horse_n_game" target="_blank" rel="noreferrer noopener">ゴブロのケツ（獄長）</a>
+              ／
+              <a href="https://github.com/59naga/gbf-teamsimulator" target="_blank" rel="noreferrer noopener">github</a>
+            </p>
+          </header>
         </ReactModal>
+        <form>
+          <ul>
+            <li>
+              <AllCheckbox label="Rarity" type="rarity" value={rarities.join(',')} />
+              {rarities.map(value => <Checkbox type="rarity" key={value} value={value} />)}
+            </li>
+            <li>
+              <AllCheckbox label="Element" type="element" value={elements.join(',')} />
+              {elements.map(value => <Checkbox type="element" key={value} value={value} />)}
+            </li>
+            <li>
+              <AllCheckbox label="Speciality" type="weapon" value={weapons.join(',')} />
+              {weapons.map(value => <Checkbox type="weapon" key={value} value={value} />)}
+            </li>
+            <li>
+              <AllCheckbox label="Race" type="race" value={races.join(',')} />
+              {races.map(value => <Checkbox type="race" key={value} value={value} />)}
+            </li>
+          </ul>
+          <footer>{found.length ? `${found.length} character found` : 'no results found'}</footer>
+        </form>
         <section>
           {
             found.length ?

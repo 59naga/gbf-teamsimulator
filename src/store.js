@@ -2,12 +2,12 @@ import { createStore, compose } from 'redux';
 import update from 'react-addons-update';
 import characters from '../gbf.wiki-data/dist/characters.json';
 
-import { races } from './defines';
+import { rarities, races } from './defines';
 
 const initialState = {
   characters,
   query: {
-    rarity: 'SSR',
+    rarity: rarities.join(','),
     element: 'Fire',
     weapon: 'Sabre',
     race: races.join(','),

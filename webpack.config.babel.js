@@ -1,3 +1,4 @@
+import { DefinePlugin } from 'webpack';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 import autoprefixer from 'autoprefixer-stylus';
@@ -5,8 +6,15 @@ import ks from 'kouto-swiss';
 import sanitize from 'sanitize.styl';
 import stylusResponsiveBreakpoints from 'stylus-responsive-breakpoints';
 
+import { name, version } from './package.json';
+
 const { NODE_ENV } = process.env;
-const plugins = [];
+const plugins = [
+  new DefinePlugin({
+    NAME: JSON.stringify(name),
+    VERSION: JSON.stringify(version),
+  }),
+];
 if (NODE_ENV === 'production') {
   plugins.push(new UglifyJsPlugin());
 }

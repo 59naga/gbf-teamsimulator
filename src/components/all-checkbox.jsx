@@ -17,25 +17,27 @@ class AllCheckbox extends React.Component {
     const data = query[type] || '';
 
     return (
-      <label htmlFor={type}>
+      <label className="all-check" htmlFor={type}>
         <input
           id={type}
           type="checkbox"
           checked={data.length > 0}
           onChange={() => { this.handleCheck(); }}
         />
-        <span>All</span>
+        <span>{this.props.label}</span>
       </label>
     );
   }
 }
 AllCheckbox.propTypes = {
+  label: PropTypes.string,
   query: PropTypes.shape({}),
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 AllCheckbox.defaultProps = {
+  label: 'All',
   query: {},
 };
 

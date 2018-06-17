@@ -5,35 +5,44 @@ sanitize()
 
 #simulator
   position relative
-  margin-top 3em
-#banner
-  position fixed
-  top 0
-  right 0
-  left 0
+  margin-top 2em
+  #banner
+    position fixed
+    top 0
+    right 0
+    left 0
 
-  background white
+    background white
+
+h1
+  text-align center
 
 body
   position relative
 
-header
-footer
-  text-align right
-
 form
-  h2:nth-child(n+2)
-    margin-top .4em
+  li:nth-child(n+2)
+    display inline-block
+    margin-top .6em
+  .all-check
+    font-weight bold
 
-li
-  display inline-block
+  footer
+    text-align center
+    text-decoration underline
 
-  img
-    +srb-landscape()
-      width 12.5vw
+  margin-bottom .25em
 
-    +srb-portrait()
-      width 20vw
+ul
+  li
+    display inline-block
+
+    img
+      +srb-landscape()
+        width 12.5vw
+
+      +srb-portrait()
+        width 20vw
 
 label
   display inline-block

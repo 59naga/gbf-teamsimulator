@@ -3,3 +3,7 @@ extends: airbnb
 
 env:
   browser: true
+
+globals:
+  NAME: true
+  VERSION: true
