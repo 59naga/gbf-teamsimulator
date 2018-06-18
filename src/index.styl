@@ -37,12 +37,19 @@ ul
   li
     display inline-block
 
-    img
-      +srb-landscape()
-        width 12.5vw
+section
+  label
+    input[type="checkbox"]
+      display none
 
-      +srb-portrait()
-        width 20vw
+    input[type="checkbox"]:checked + img
+      opacity .25
+  img
+    +srb-landscape()
+      width 12.5vw
+
+    +srb-portrait()
+      width 20vw
 
 label
   display inline-block
@@ -52,4 +59,26 @@ label
     margin 0 .25em
 
 button
+label
   cursor pointer
+
+.team
+  +srb-landscape()
+    margin-top 40vw
+  +srb-portrait()
+    margin-top 40vh
+  section
+    position fixed
+    bottom 0
+    left 0
+    right 0
+    background white
+
+  img
+    width 20vw
+  .empty
+    display inline-block
+    background url(http://game-a.granbluefantasy.jp/assets/img_mid/sp/party/index/parts_small-scc881a8d53.png) no-repeat 0 0
+    background-size 290px 2286px
+    width 91px
+    height 201px
