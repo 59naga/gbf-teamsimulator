@@ -34,6 +34,8 @@
     "yaml-loader": "^0.5.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "history": "^4.7.2",
     "lodash.filter": "^4.6.0",
     "lodash.find": "^4.6.0",
     "lodash.xor": "^4.5.0",
@@ -43,6 +45,7 @@
     "react-dom": "^16.4.1",
     "react-modal": "^3.4.5",
     "react-redux": "^5.0.7",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^4.0.0",
     "upper-case": "^1.1.3"
   }

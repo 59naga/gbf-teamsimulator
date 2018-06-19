@@ -7,3 +7,4 @@ env:
 globals:
   NAME: true
   VERSION: true
+  SEPARATOR: true

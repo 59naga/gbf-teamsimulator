@@ -1,6 +1,8 @@
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { createHashHistory } from 'history';
+import { routerMiddleware } from 'react-router-redux';
+import { parse } from 'querystring';
 import update from 'react-addons-update';
-import characters from '../gbf.wiki-data/dist/chars.json';
 
 import { rarities, races } from './defines';
 
@@ -18,23 +20,38 @@ function getAliases(data) {
 }
 
 const initialState = {
-  aliases: getAliases(characters),
-  characters,
+  initialized: false,
+  aliases: [],
+  characters: [],
   query: {
-    rarity: rarities.join(','),
+    rarity: rarities.join(SEPARATOR),
     element: 'Fire',
     weapon: 'Sabre',
-    race: races.join(','),
+    race: races.join(SEPARATOR),
     team: '',
   },
 };
 
-export default createStore((state, { type, payload, error }) => {
+export const history = createHashHistory();
+export default createStore((state, { type, payload = {}, error }) => {
   if (error) throw error;
+
+  const search = payload.search ? parse(payload.search.slice(1)) : undefined;
   switch (type) {
+    case '@@router/LOCATION_CHANGE':
+      if (search) {
+        return update(state, { query: { $set: Object.assign({}, state.query, search) } });
+      }
+      return update(state, { query: { $set: Object.assign({}, state.query, initialState.query) } });
+    case 'INIT':
+      return update(state, {
+        initialized: { $set: true },
+        aliases: { $set: getAliases(payload) },
+        characters: { $set: payload },
+      });
     case 'QUERY':
       return update(state, { query: { $set: Object.assign({}, state.query, payload) } });
     default:
       return state;
   }
-}, initialState, compose());
+}, initialState, applyMiddleware(routerMiddleware(history)));

@@ -9,13 +9,16 @@ import stylusResponsiveBreakpoints from 'stylus-responsive-breakpoints';
 import { name, version } from './package.json';
 
 const { NODE_ENV } = process.env;
+const isProduction = NODE_ENV === 'production';
+
 const plugins = [
   new DefinePlugin({
     NAME: JSON.stringify(name),
     VERSION: JSON.stringify(version),
+    SEPARATOR: JSON.stringify('-'),
   }),
 ];
-if (NODE_ENV === 'production') {
+if (isProduction) {
   plugins.push(new UglifyJsPlugin());
 }
 
@@ -25,6 +28,7 @@ export default {
     contentBase: `${__dirname}/dist`,
   },
 
+  devtool: isProduction ? undefined : 'source-map',
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -32,7 +36,7 @@ export default {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: NODE_ENV === 'production' ? undefined : /(node_modules|bower_components)/,
+        exclude: isProduction ? undefined : /(node_modules|bower_components)/,
         use: [
           'babel-loader',
         ],

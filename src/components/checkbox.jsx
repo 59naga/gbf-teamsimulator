@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { stringify } from 'querystring';
 
 import _xor from 'lodash.xor';
 
 class Checkbox extends React.Component {
   handleCheck() {
     const { query, type, value } = this.props;
-    const data = query[type] ? query[type].split(',') : [];
+    const data = query[type] ? query[type].split(SEPARATOR) : [];
 
-    this.props.dispatch({
-      type: 'QUERY',
-      payload: { [type]: _xor(data, [value]).join(',') },
-    });
+    const payload = { [type]: _xor(data, [value]).join(SEPARATOR) };
+    this.props.dispatch(push(`/?${stringify(Object.assign(query, payload))}`));
   }
   render() {
     const { query, type, value } = this.props;
-    const data = query[type] ? query[type].split(',') : [];
+    const data = query[type] ? query[type].split(SEPARATOR) : [];
 
     const componentName = `${type}_${value}`;
     return (

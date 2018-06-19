@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { stringify } from 'querystring';
 
 import _xor from 'lodash.xor';
 
 class Character extends React.Component {
   handleCheck() {
     const { query, char } = this.props;
-    const data = query.team ? query.team.split(',') : [];
+    const data = query.team ? query.team.split(SEPARATOR) : [];
     const value = data.reduce((prev, id) => {
       const aliases = this.props.aliases[char.char_id] || [];
       const aliased = aliases.indexOf(id);
@@ -21,14 +23,13 @@ class Character extends React.Component {
     if (afterValue.length > 5) {
       return;
     }
-    this.props.dispatch({
-      type: 'QUERY',
-      payload: { team: afterValue.join(',') },
-    });
+
+    const payload = { team: afterValue.join(SEPARATOR) };
+    this.props.dispatch(push(`/?${stringify(Object.assign(query, payload))}`));
   }
   render() {
     const { query, char } = this.props;
-    const data = query.team ? query.team.split(',') : [];
+    const data = query.team ? query.team.split(SEPARATOR) : [];
 
     const componentName = `char_${char.id}`;
     return (
