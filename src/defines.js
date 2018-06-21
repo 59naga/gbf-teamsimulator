@@ -20,3 +20,4 @@ export const weapons = [
   'Katana',
 ];
 export const races = ['Human', 'Erune', 'Draph', 'Harvin', 'Primal', 'Unknown'];
+export const styles = ['Special', 'Attack', 'Defense', 'Heal', 'Balanced'];

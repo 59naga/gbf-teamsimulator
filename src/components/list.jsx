@@ -17,13 +17,14 @@ function getChosen(query = {}) {
     weapons: query.weapon ? query.weapon.split(SEPARATOR) : [],
     rarities: query.rarity ? query.rarity.split(SEPARATOR) : [],
     races: query.race ? query.race.split(SEPARATOR) : [],
+    styles: query.style ? query.style.split(SEPARATOR) : [],
     team: query.team ? query.team.split(SEPARATOR) : [],
   };
 }
 
 class List extends React.Component {
   componentWillMount() {
-    axios('https://gitcdn.xyz/repo/59naga/gbf.wiki-data/master/dist/chars.json').then(({ data: payload }) => {
+    axios('https://gitcdn.xyz/cdn/59naga/gbf.wiki-data/master/dist/chars.json').then(({ data: payload }) => {
       this.props.dispatch({ type: 'INIT', payload });
     });
   }
@@ -46,6 +47,9 @@ class List extends React.Component {
         return;
       }
       if (chosen.races.indexOf(char.race) === -1) {
+        return;
+      }
+      if (chosen.styles.indexOf(char.style) === -1) {
         return;
       }
       if (!char.name) {

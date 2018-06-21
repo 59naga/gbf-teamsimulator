@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { elements, weapons, rarities, races } from '../defines';
+import { elements, weapons, rarities, races, styles } from '../defines';
 import AllCheckbox from './all-checkbox';
 import Checkbox from './checkbox';
 
@@ -30,6 +30,10 @@ class Form extends React.Component {
           <li>
             <AllCheckbox label="Race" type="race" value={races.join(SEPARATOR)} />
             {races.map(value => <Checkbox type="race" key={value} value={value} />)}
+          </li>
+          <li>
+            <AllCheckbox label="Styles" type="style" value={styles.join(SEPARATOR)} />
+            {styles.map(value => <Checkbox type="style" key={value} value={value} />)}
           </li>
         </ul>
         <footer>

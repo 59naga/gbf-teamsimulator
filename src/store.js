@@ -4,7 +4,7 @@ import { routerMiddleware } from 'react-router-redux';
 import { parse } from 'querystring';
 import update from 'react-addons-update';
 
-import { rarities, races } from './defines';
+import { rarities, races, styles } from './defines';
 
 function getAliases(data) {
   const aliases = {};
@@ -28,6 +28,7 @@ const initialState = {
     element: 'Fire',
     weapon: 'Sabre',
     race: races.join(SEPARATOR),
+    style: styles.join(SEPARATOR),
     team: '',
   },
 };
