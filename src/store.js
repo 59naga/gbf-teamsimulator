@@ -50,6 +50,8 @@ export default createStore((state, { type, payload = {}, error }) => {
         aliases: { $set: getAliases(payload) },
         characters: { $set: payload },
       });
+    case 'LOCALE':
+      return update(state, { lng: { $set: payload } });
     case 'QUERY':
       return update(state, { query: { $set: Object.assign({}, state.query, payload) } });
     default:

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import axios from 'axios';
 import _filter from 'lodash.filter';
 import _find from 'lodash.find';
@@ -62,17 +63,34 @@ class List extends React.Component {
     let names = [];
     let href = '';
     if (this.props.initialized) {
+      const isEn = this.props.i18n.language === 'en';
+      const nameField = isEn ? 'name_en' : 'name';
+      const nameSeparator = isEn ? ', ' : '、';
+      const hashtag = isEn ? 'GBFTS' : '推し編成的ななにか';
+
       label = found.length ? `${found.length} character found` : 'no results found';
       team = chosen.team.map(id => _find(this.props.characters, (item => item.id === id)));
-      names = team.map(char => `${char.rarity}${char.name}`).join('、');
-      href = `https://twitter.com/intent/tweet?text=グラブルの推し編成はこちら！ ${names}／${title}&hashtags=推し編成的ななにか&url=${encodeURIComponent(location.href)}`;
+      names = team.map(char => `${char.rarity}${isEn ? ' ' : ''}${char[nameField]}`).join(nameSeparator);
+
+      // TODO: URLが長すぎて平文がほとんど入らない
+      const text = this.props.t('team.tweet');
+      // const limit = 20;
+      // let text = `${this.props.t('team.tweet')} ${names}`;
+      // if (text.length + hashtag.length > limit) {
+      //   text = `${text.slice(0, limit + hashtag.length)}…`;
+      // }
+
+      href = `https://twitter.com/intent/tweet?text=${text}&hashtags=${hashtag}&url=${encodeURIComponent(location.href)}`;
     }
 
     return (
       <div id="simulator">
         <header id="banner">
           <h1>
-            <button onClick={() => { this.modal.getWrappedInstance().handleOpenModal(); }}>
+            <button onClick={() => {
+                this.modal.getWrappedInstance().getWrappedInstance().handleOpenModal();
+              }}
+            >
               {title}
             </button>
           </h1>
@@ -99,8 +117,8 @@ class List extends React.Component {
             <div className="team">
               <section>
                 <header>
-                  <h1>MY TEAM</h1>
-                  <a href={href} target="_blank" rel="noreferrer noopener">Share this</a>
+                  <h1>{this.props.t('team.label')}</h1>
+                  <a href={href} target="_blank" rel="noreferrer noopener">{this.props.t('team.share')}</a>
                 </header>
                 {team.map(char => (
                   <img
@@ -132,4 +150,4 @@ List.defaultProps = {
   query: {},
 };
 
-export default connect(state => state)(List);
+export default connect(state => state)(translate()(List));

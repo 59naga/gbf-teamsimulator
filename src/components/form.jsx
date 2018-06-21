@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { translate } from 'react-i18next';
 
 import { elements, weapons, rarities, races, styles } from '../defines';
 import AllCheckbox from './all-checkbox';
@@ -32,12 +33,12 @@ class Form extends React.Component {
             {races.map(value => <Checkbox type="race" key={value} value={value} />)}
           </li>
           <li>
-            <AllCheckbox label="Styles" type="style" value={styles.join(SEPARATOR)} />
+            <AllCheckbox label="Style" type="style" value={styles.join(SEPARATOR)} />
             {styles.map(value => <Checkbox type="style" key={value} value={value} />)}
           </li>
         </ul>
         <footer>
-          <button onClick={() => { this.handleReset(); }}>All Reset</button>
+          <button onClick={() => { this.handleReset(); }}>{this.props.t('form.reset')}</button>
           {this.props.label}
         </footer>
       </form>
@@ -45,8 +46,9 @@ class Form extends React.Component {
   }
 }
 Form.propTypes = {
+  t: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(state => ({}))(Form);
+export default connect(state => ({}))(translate()(Form));

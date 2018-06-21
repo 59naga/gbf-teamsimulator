@@ -1,0 +1,56 @@
+en:
+  language: Language
+  developer: Developer
+  greet: Easy to way for speciality search. I noticed the existence of "Collection Tracker" later...
+  form:
+    reset: All Reset
+  team:
+    label: MY TEAM
+    share: Share this
+    tweet: Check out my team!
+
+ja:
+  language: 言語
+  developer: 開発者
+  greet: 得意武器検索めんどくさいから作った
+  team:
+    label: 編成
+    share: twitterでシェア
+    tweet: グラブルの推し編成はこちら！
+  form:
+    Rarity: レア度
+    Element: 属性
+    Speciality: 得意
+    Race: 種族
+    Style: タイプ
+    reset: 全て初期化
+    SSR: SSR
+    SR: SR
+    R: R
+    Fire: 火
+    Water: 水
+    Earth: 地
+    Wind: 風
+    Light: 光
+    Dark: 闇
+    Sabre: 剣
+    Dagger: 短剣
+    Spear: 槍
+    Axe: 斧
+    Staff: 杖
+    Gun: 銃
+    Melee: 格闘
+    Bow: 弓
+    Harp: 楽器
+    Katana: 刀
+    Human: 人間
+    Erune: ヒューマン
+    Draph: ドラフ
+    Harvin: ハーヴィン
+    Primal: 星晶獣
+    Unknown: 不明
+    Special: 特殊
+    Attack: 攻撃
+    Defense: 防御
+    Heal: 回復
+    Balanced: バランス

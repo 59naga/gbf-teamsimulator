@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 
 import ReactModal from 'react-modal';
+
+import i18n from '../i18n';
 
 class Modal extends React.Component {
   constructor() {
@@ -28,9 +31,15 @@ class Modal extends React.Component {
         <header>
           <button onClick={this.handleCloseModal}>☓ Close</button>
           <h1>{this.props.title}</h1>
-          <p>得意武器検索めんどくさいから作った</p>
           <p>
-                開発者:
+            {this.props.t('language')}:
+            <button onClick={() => { i18n.changeLanguage('en'); }}>en</button>
+            ／
+            <button onClick={() => { i18n.changeLanguage('ja'); }}>ja</button>
+          </p>
+          <pre>{this.props.t('greet')}</pre>
+          <p>
+            {this.props.t('developer')}:
             <a href="https://twitter.com/horse_n_game" target="_blank" rel="noreferrer noopener">ゴブロのケツ（獄長）</a>
                 ／
             <a href="https://github.com/59naga/gbf-teamsimulator" target="_blank" rel="noreferrer noopener">github</a>
@@ -41,7 +50,8 @@ class Modal extends React.Component {
   }
 }
 Modal.propTypes = {
+  t: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default connect((state => state), null, null, { withRef: true })(Modal);
+export default connect((state => state), null, null, { withRef: true })(translate(null, { withRef: true })(Modal));

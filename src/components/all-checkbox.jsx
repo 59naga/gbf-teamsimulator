@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { stringify } from 'querystring';
+import { translate } from 'react-i18next';
 
 class AllCheckbox extends React.Component {
   handleCheck() {
@@ -24,12 +25,13 @@ class AllCheckbox extends React.Component {
           checked={data.length > 0}
           onChange={() => { this.handleCheck(); }}
         />
-        <span>{this.props.label}</span>
+        <span>{this.props.t([`form.${this.props.label}`, this.props.label])}</span>
       </label>
     );
   }
 }
 AllCheckbox.propTypes = {
+  t: PropTypes.func.isRequired,
   label: PropTypes.string,
   query: PropTypes.shape({}),
   type: PropTypes.string.isRequired,
@@ -41,4 +43,4 @@ AllCheckbox.defaultProps = {
   query: {},
 };
 
-export default connect(state => state)(AllCheckbox);
+export default connect(state => state)(translate()(AllCheckbox));

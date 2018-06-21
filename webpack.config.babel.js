@@ -42,6 +42,13 @@ export default {
         ],
       },
       {
+        test: /\.yaml$/,
+        use: [
+          'json-loader',
+          'yaml-loader',
+        ]
+      },
+      {
         test: /\.styl$/,
         use: [
           'style-loader',
