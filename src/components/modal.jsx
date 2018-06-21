@@ -21,6 +21,7 @@ class Modal extends React.Component {
     this.setState({ showModal: false });
   }
   render() {
+    const { t, title } = this.props;
     return (
       <ReactModal
         ariaHideApp={false}
@@ -30,16 +31,16 @@ class Modal extends React.Component {
       >
         <header>
           <button onClick={this.handleCloseModal}>☓ Close</button>
-          <h1>{this.props.title}</h1>
+          <h1>{title}</h1>
           <p>
-            {this.props.t('language')}:
+            {t('language')}:
             <button onClick={() => { i18n.changeLanguage('en'); }}>en</button>
             ／
             <button onClick={() => { i18n.changeLanguage('ja'); }}>ja</button>
           </p>
-          <pre>{this.props.t('greet')}</pre>
+          <pre>{t('greet')}</pre>
           <p>
-            {this.props.t('developer')}:
+            {t('developer')}:
             <a href="https://twitter.com/horse_n_game" target="_blank" rel="noreferrer noopener">ゴブロのケツ（獄長）</a>
                 ／
             <a href="https://github.com/59naga/gbf-teamsimulator" target="_blank" rel="noreferrer noopener">github</a>

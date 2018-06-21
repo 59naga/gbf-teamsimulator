@@ -13,6 +13,7 @@ class Form extends React.Component {
     this.props.dispatch(push('/'));
   }
   render() {
+    const { t, label } = this.props;
     return (
       <form>
         <ul>
@@ -38,8 +39,8 @@ class Form extends React.Component {
           </li>
         </ul>
         <footer>
-          <button onClick={() => { this.handleReset(); }}>{this.props.t('form.reset')}</button>
-          <span>{this.props.label}</span>
+          <button onClick={() => { this.handleReset(); }}>{t('form.reset')}</button>
+          <span>{label}</span>
         </footer>
       </form>
     );

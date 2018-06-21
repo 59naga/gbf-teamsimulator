@@ -7,14 +7,14 @@ import { translate } from 'react-i18next';
 
 class AllCheckbox extends React.Component {
   handleCheck() {
-    const { query, type, value } = this.props;
-    const data = query[type] || '';
+    const { query, type, value, dispatch } = this.props;
 
+    const data = query[type] || '';
     const payload = { [type]: data.length ? '' : value };
-    this.props.dispatch(push(`/?${stringify(Object.assign(query, payload))}`));
+    dispatch(push(`/?${stringify(Object.assign(query, payload))}`));
   }
   render() {
-    const { query, type } = this.props;
+    const { query, type, label } = this.props;
     const data = query[type] || '';
 
     return (
@@ -25,15 +25,15 @@ class AllCheckbox extends React.Component {
           checked={data.length > 0}
           onChange={() => { this.handleCheck(); }}
         />
-        <span>{this.props.t([`form.${this.props.label}`, this.props.label])}</span>
+        <span>{this.props.t([`form.${label}`, label])}</span>
       </label>
     );
   }
 }
 AllCheckbox.propTypes = {
-  t: PropTypes.func.isRequired,
   label: PropTypes.string,
-  query: PropTypes.shape({}),
+  query: PropTypes.shape(),
+  t: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,

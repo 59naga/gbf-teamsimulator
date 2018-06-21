@@ -20,7 +20,7 @@ function getAliases(data) {
 }
 
 const initialState = {
-  initialized: false,
+  loaded: false,
   aliases: [],
   characters: [],
   query: {
@@ -46,7 +46,7 @@ export default createStore((state, { type, payload = {}, error }) => {
       return update(state, { query: { $set: Object.assign({}, state.query, initialState.query) } });
     case 'INIT':
       return update(state, {
-        initialized: { $set: true },
+        loaded: { $set: true },
         aliases: { $set: getAliases(payload) },
         characters: { $set: payload },
       });

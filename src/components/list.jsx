@@ -3,25 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import axios from 'axios';
-import _filter from 'lodash.filter';
-import _find from 'lodash.find';
 import upperCase from 'upper-case';
 
 import Modal from './modal';
 import Form from './form';
 import Character from './checkbox-character';
 
+import { findCharacters, getTeam, getShareUrl } from './utils';
+
 const title = `${upperCase(NAME).replace(/-/g, ' ')} v${VERSION}`;
-function getChosen(query = {}) {
-  return {
-    elements: query.element ? query.element.split(SEPARATOR) : [],
-    weapons: query.weapon ? query.weapon.split(SEPARATOR) : [],
-    rarities: query.rarity ? query.rarity.split(SEPARATOR) : [],
-    races: query.race ? query.race.split(SEPARATOR) : [],
-    styles: query.style ? query.style.split(SEPARATOR) : [],
-    team: query.team ? query.team.split(SEPARATOR) : [],
-  };
-}
 
 class List extends React.Component {
   componentWillMount() {
@@ -30,57 +20,14 @@ class List extends React.Component {
     });
   }
   render() {
-    const chosen = getChosen(this.props.query);
+    const { loaded, characters, query, t } = this.props;
+    const found = findCharacters(characters, query);
+    const team = getTeam(characters, query.team);
+    const href = getShareUrl();
 
-    const found = [];
-    this.props.characters.forEach((char) => {
-      if (!char.name) {
-        return;
-      }
-
-      if (chosen.rarities.indexOf(char.rarity) === -1) {
-        return;
-      }
-      if (chosen.elements.indexOf(char.element) === -1) {
-        return;
-      }
-      if (!_filter(chosen.weapons, (value => char.specialty.match(value))).join('')) {
-        return;
-      }
-      if (chosen.races.indexOf(char.race) === -1) {
-        return;
-      }
-      if (chosen.styles.indexOf(char.style) === -1) {
-        return;
-      }
-      if (!char.name) {
-        return;
-      }
-      found.push(char);
-    });
-    let label = this.props.t('loading');
-    let team = [];
-    let names = [];
-    let href = '';
-    if (this.props.initialized) {
-      const isEn = this.props.i18n.language === 'en';
-      const nameField = isEn ? 'name_en' : 'name';
-      const nameSeparator = isEn ? ', ' : '、';
-      const hashtag = isEn ? 'GBFTS' : '推し編成的ななにか';
-
-      label = found.length ? this.props.t('found', {found: found.length}) : this.props.t('notfound');
-      team = chosen.team.map(id => _find(this.props.characters, (item => item.id === id)));
-      names = team.map(char => `${char.rarity}${isEn ? ' ' : ''}${char[nameField]}`).join(nameSeparator);
-
-      // TODO: URLが長すぎて平文がほとんど入らない
-      const text = this.props.t('team.tweet');
-      // const limit = 20;
-      // let text = `${this.props.t('team.tweet')} ${names}`;
-      // if (text.length + hashtag.length > limit) {
-      //   text = `${text.slice(0, limit + hashtag.length)}…`;
-      // }
-
-      href = `https://twitter.com/intent/tweet?text=${text}&hashtags=${hashtag}&url=${encodeURIComponent(location.href)}`;
+    let label = t('loading');
+    if (loaded) {
+      label = found.length ? t('found', { found: found.length }) : t('notfound');
     }
 
     return (
@@ -117,8 +64,8 @@ class List extends React.Component {
             <div className="team">
               <section>
                 <header>
-                  <h1>{this.props.t('team.label')}</h1>
-                  <a href={href} target="_blank" rel="noreferrer noopener">{this.props.t('team.share')}</a>
+                  <h1>{t('team.label')}</h1>
+                  <a href={href} target="_blank" rel="noreferrer noopener">{t('team.share')}</a>
                 </header>
                 {team.map(char => (
                   <img
@@ -137,14 +84,11 @@ class List extends React.Component {
   }
 }
 List.propTypes = {
-  initialized: PropTypes.bool.isRequired,
+  query: PropTypes.shape(),
+  t: PropTypes.func.isRequired,
+  loaded: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   characters: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  query: PropTypes.shape({
-    element: PropTypes.string,
-    weapon: PropTypes.string,
-    rarity: PropTypes.string,
-  }),
 };
 List.defaultProps = {
   query: {},

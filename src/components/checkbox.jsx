@@ -16,7 +16,7 @@ class Checkbox extends React.Component {
     this.props.dispatch(push(`/?${stringify(Object.assign(query, payload))}`));
   }
   render() {
-    const { query, type, value } = this.props;
+    const { t, query, type, value } = this.props;
     const data = query[type] ? query[type].split(SEPARATOR) : [];
 
     const componentName = `${type}_${value}`;
@@ -28,14 +28,14 @@ class Checkbox extends React.Component {
           checked={data.indexOf(value) !== -1}
           onChange={() => { this.handleCheck(); }}
         />
-        <span>{this.props.t([`form.${value}`, value])}</span>
+        <span>{t([`form.${value}`, value])}</span>
       </label>
     );
   }
 }
 Checkbox.propTypes = {
+  query: PropTypes.shape(),
   t: PropTypes.func.isRequired,
-  query: PropTypes.shape({}),
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
