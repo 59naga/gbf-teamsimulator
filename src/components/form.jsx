@@ -39,7 +39,7 @@ class Form extends React.Component {
         </ul>
         <footer>
           <button onClick={() => { this.handleReset(); }}>{this.props.t('form.reset')}</button>
-          {this.props.label}
+          <span>{this.props.label}</span>
         </footer>
       </form>
     );
@@ -51,4 +51,4 @@ Form.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(state => ({}))(translate()(Form));
+export default connect(() => ({}))(translate()(Form));

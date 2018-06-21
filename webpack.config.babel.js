@@ -46,7 +46,7 @@ export default {
         use: [
           'json-loader',
           'yaml-loader',
-        ]
+        ],
       },
       {
         test: /\.styl$/,

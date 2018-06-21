@@ -58,7 +58,7 @@ class List extends React.Component {
       }
       found.push(char);
     });
-    let label = 'now loading...';
+    let label = this.props.t('loading');
     let team = [];
     let names = [];
     let href = '';
@@ -68,7 +68,7 @@ class List extends React.Component {
       const nameSeparator = isEn ? ', ' : '、';
       const hashtag = isEn ? 'GBFTS' : '推し編成的ななにか';
 
-      label = found.length ? `${found.length} character found` : 'no results found';
+      label = found.length ? this.props.t('found', {found: found.length}) : this.props.t('notfound');
       team = chosen.team.map(id => _find(this.props.characters, (item => item.id === id)));
       names = team.map(char => `${char.rarity}${isEn ? ' ' : ''}${char[nameField]}`).join(nameSeparator);
 

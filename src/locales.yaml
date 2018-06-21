@@ -2,6 +2,9 @@ en:
   language: Language
   developer: Developer
   greet: Easy to way for speciality search. I noticed the existence of "Collection Tracker" later...
+  loading: now loading...
+  found: '{{found}} characters found'
+  notfound: no results found
   form:
     reset: All Reset
   team:
@@ -13,6 +16,9 @@ ja:
   language: 言語
   developer: 開発者
   greet: 得意武器検索めんどくさいから作った
+  loading: 読み込み中
+  found: '{{found}} 人'
+  notfound: 該当なし
   team:
     label: 編成
     share: twitterでシェア
@@ -43,8 +49,8 @@ ja:
     Bow: 弓
     Harp: 楽器
     Katana: 刀
-    Human: 人間
-    Erune: ヒューマン
+    Human: ヒューマン
+    Erune: エルーン
     Draph: ドラフ
     Harvin: ハーヴィン
     Primal: 星晶獣
