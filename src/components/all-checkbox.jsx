@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { stringify } from 'querystring';
 
 class AllCheckbox extends React.Component {
   handleCheck() {
     const { query, type, value } = this.props;
     const data = query[type] || '';
 
-    this.props.dispatch({
-      type: 'QUERY',
-      payload: { [type]: data.length ? '' : value },
-    });
+    const payload = { [type]: data.length ? '' : value };
+    this.props.dispatch(push(`/?${stringify(Object.assign(query, payload))}`));
   }
   render() {
     const { query, type } = this.props;
