@@ -8,8 +8,6 @@ import i18n from './i18n';
 import store, { history } from './store';
 import List from './components/list';
 
-import './index.styl';
-
 window.addEventListener('DOMContentLoaded', () => {
   render(
     (

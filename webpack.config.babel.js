@@ -1,11 +1,6 @@
 import { DefinePlugin } from 'webpack';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
-import autoprefixer from 'autoprefixer-stylus';
-import ks from 'kouto-swiss';
-import sanitize from 'sanitize.styl';
-import stylusResponsiveBreakpoints from 'stylus-responsive-breakpoints';
-
 import { name, version } from './package.json';
 
 const { NODE_ENV } = process.env;
@@ -46,25 +41,6 @@ export default {
         use: [
           'json-loader',
           'yaml-loader',
-        ],
-      },
-      {
-        test: /\.styl$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'stylus-loader',
-            options: {
-              sourceMap: true,
-              use: [autoprefixer(), ks(), sanitize(), stylusResponsiveBreakpoints()],
-            },
-          },
         ],
       },
     ],
