@@ -3,8 +3,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 import { name, version } from './package.json';
 
-const { NODE_ENV } = process.env;
-const isProduction = NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const plugins = [
   new DefinePlugin({
@@ -18,7 +17,7 @@ if (isProduction) {
 }
 
 export default {
-  mode: NODE_ENV || 'development',
+  mode: process.env.NODE_ENV || 'development',
   devServer: {
     contentBase: `${__dirname}/dist`,
   },
@@ -32,8 +31,9 @@ export default {
       {
         test: /\.(js|jsx)$/,
         exclude: isProduction ? undefined : /(node_modules|bower_components)/,
-        use: [
+        use: isProduction ? ['babel-loader'] : [
           'babel-loader',
+          'eslint-loader',
         ],
       },
       {

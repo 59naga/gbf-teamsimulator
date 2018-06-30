@@ -1,12 +1,13 @@
+// @flow
 import { createStore, applyMiddleware } from 'redux';
-import { createHashHistory } from 'history';
+import createHashHistory from 'history/createHashHistory';
 import { routerMiddleware } from 'react-router-redux';
 import { parse } from 'querystring';
 import update from 'react-addons-update';
 
 import { rarities, races, styles } from './defines';
 
-function getAliases(data) {
+function getAliases(data: Array<Char>): Object {
   const aliases = {};
   data.forEach((chara) => {
     if (chara.char_id) {
@@ -34,10 +35,11 @@ const initialState = {
 };
 
 export const history = createHashHistory();
-export default createStore((state, { type, payload = {}, error }) => {
+export default createStore((state: State = {}, action: Action = { type: '', payload: {} }): State => {
+  const { type, payload, error } = action;
   if (error) throw error;
 
-  const search = payload.search ? parse(payload.search.slice(1)) : undefined;
+  const search = payload && payload.search ? parse(payload.search.slice(1)) : undefined;
   switch (type) {
     case '@@router/LOCATION_CHANGE':
       if (search) {

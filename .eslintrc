@@ -1,5 +1,13 @@
 ---
-extends: airbnb
+parser: babel-eslint
+extends:
+  - airbnb
+  - plugin:flowtype/recommended
+plugins:
+  - flowtype
+settings:
+  flowtype:
+    onlyFilesWithFlowAnnotation: true
 
 env:
   browser: true
