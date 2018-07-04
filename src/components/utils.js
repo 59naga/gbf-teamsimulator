@@ -13,7 +13,7 @@ export function findCharacters(characters: Array<Char>, query: any = {}): Array<
   const styles: string[] = query.style ? query.style.split(SEPARATOR) : [];
 
   const found: Array<Char> = [];
-  characters.forEach(char => {
+  characters.forEach((char) => {
     if (!char.name) {
       return;
     }
@@ -45,7 +45,7 @@ export function findCharacters(characters: Array<Char>, query: any = {}): Array<
 export function getTeam(characters: Array<Char>, team: string = ''): Array<Char> {
   const found: Array<Char> = [];
 
-  team.split(SEPARATOR).forEach(id => {
+  team.split(SEPARATOR).forEach((id) => {
     const char = _find(characters, item => item.id === id);
     if (char) {
       found.push(char);
@@ -60,9 +60,7 @@ export function getShareUrl(team: Array<Char> = []): string {
 
   const nameField = isEn ? 'name_en' : 'name';
   const nameSeparator = isEn ? ', ' : '、';
-  const names = team
-    .map(char => `${char.rarity}${isEn ? ' ' : ''}${char[nameField]}`)
-    .join(nameSeparator);
+  const names = team.map(char => `${char.rarity}${isEn ? ' ' : ''}${char[nameField]}`).join(nameSeparator);
 
   // TODO: URLが長すぎて平文がほとんど入らない
   // const limit = 20;

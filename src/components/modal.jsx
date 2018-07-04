@@ -7,6 +7,9 @@ import ReactModal from 'react-modal';
 
 import i18n from '../i18n';
 
+const githubUrl = 'https://github.com/59naga/gbf-teamsimulator';
+const twitterUrl = 'https://twitter.com/horse_n_game';
+
 type Props = {
   t: Function,
   title: string,
@@ -43,32 +46,16 @@ class Modal extends React.Component<Props, State> {
           <h1>{title}</h1>
           <p>
             {t('language')}:
-            <button
-              onClick={() => {
-                i18n.changeLanguage('en');
-              }}
-            >
-              en
-            </button>
+            <button onClick={() => { i18n.changeLanguage('en'); }} > en </button>
             ／
-            <button
-              onClick={() => {
-                i18n.changeLanguage('ja');
-              }}
-            >
-              ja
-            </button>
+            <button onClick={() => { i18n.changeLanguage('ja'); }} > ja </button>
           </p>
           <pre>{t('greet')}</pre>
           <p>
             {t('developer')}:
-            <a href="https://twitter.com/horse_n_game" target="_blank" rel="noreferrer noopener">
-              ゴブロのケツ（獄長）
-            </a>
+            <a href={twitterUrl} target="_blank" rel="noreferrer noopener"> ゴブロのケツ（獄長）</a>
             ／
-            <a href="https://github.com/59naga/gbf-teamsimulator" target="_blank" rel="noreferrer noopener">
-              github
-            </a>
+            <a href={githubUrl} target="_blank" rel="noreferrer noopener"> github </a>
           </p>
         </header>
       </ReactModal>
@@ -80,5 +67,5 @@ export default connect(
   state => state,
   null,
   null,
-  { withRef: true }
+  { withRef: true },
 )(translate(undefined, { withRef: true })(Modal));

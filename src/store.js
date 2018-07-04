@@ -9,7 +9,7 @@ import { rarities, races, styles } from './defines';
 
 function getAliases(data: Array<Char>): Object {
   const aliases = {};
-  data.forEach(chara => {
+  data.forEach((chara) => {
     if (chara.char_id) {
       if (aliases[chara.char_id] === undefined) {
         aliases[chara.char_id] = [];
@@ -64,5 +64,5 @@ export default createStore(
     }
   },
   initialState,
-  applyMiddleware(routerMiddleware(history))
+  applyMiddleware(routerMiddleware(history)),
 );
