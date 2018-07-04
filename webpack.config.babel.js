@@ -31,10 +31,7 @@ export default {
       {
         test: /\.(js|jsx)$/,
         exclude: isProduction ? undefined : /(node_modules|bower_components)/,
-        use: isProduction ? ['babel-loader'] : [
-          'babel-loader',
-          'eslint-loader',
-        ],
+        use: ['babel-loader'],
       },
       {
         test: /\.yaml$/,
