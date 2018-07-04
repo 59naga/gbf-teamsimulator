@@ -1,13 +1,6 @@
 // @flow
 export const rarities: string[] = ['SSR', 'SR', 'R'];
-export const elements: string[] = [
-  'Fire',
-  'Water',
-  'Earth',
-  'Wind',
-  'Light',
-  'Dark',
-];
+export const elements: string[] = ['Fire', 'Water', 'Earth', 'Wind', 'Light', 'Dark'];
 export const weapons: string[] = [
   'Sabre',
   'Dagger',

@@ -9,7 +9,7 @@ import { rarities, races, styles } from './defines';
 
 function getAliases(data: Array<Char>): Object {
   const aliases = {};
-  data.forEach((chara) => {
+  data.forEach(chara => {
     if (chara.char_id) {
       if (aliases[chara.char_id] === undefined) {
         aliases[chara.char_id] = [];
@@ -35,28 +35,34 @@ const initialState = {
 };
 
 export const history = createHashHistory();
-export default createStore((state: State = {}, action: Action = { type: '', payload: {} }): State => {
-  const { type, payload, error } = action;
-  if (error) throw error;
+export default createStore(
+  (state: State = {}, action: Action = { type: '', payload: {} }): State => {
+    const { type, payload, error } = action;
+    if (error) throw error;
 
-  const search = payload && payload.search ? parse(payload.search.slice(1)) : undefined;
-  switch (type) {
-    case '@@router/LOCATION_CHANGE':
-      if (search) {
-        return update(state, { query: { $set: Object.assign({}, state.query, search) } });
-      }
-      return update(state, { query: { $set: Object.assign({}, state.query, initialState.query) } });
-    case 'INIT':
-      return update(state, {
-        loaded: { $set: true },
-        aliases: { $set: getAliases(payload) },
-        characters: { $set: payload },
-      });
-    case 'LOCALE':
-      return update(state, { lng: { $set: payload } });
-    case 'QUERY':
-      return update(state, { query: { $set: Object.assign({}, state.query, payload) } });
-    default:
-      return state;
-  }
-}, initialState, applyMiddleware(routerMiddleware(history)));
+    const search = payload && payload.search ? parse(payload.search.slice(1)) : undefined;
+    switch (type) {
+      case '@@router/LOCATION_CHANGE':
+        if (search) {
+          return update(state, { query: { $set: Object.assign({}, state.query, search) } });
+        }
+        return update(state, {
+          query: { $set: Object.assign({}, state.query, initialState.query) },
+        });
+      case 'INIT':
+        return update(state, {
+          loaded: { $set: true },
+          aliases: { $set: getAliases(payload) },
+          characters: { $set: payload },
+        });
+      case 'LOCALE':
+        return update(state, { lng: { $set: payload } });
+      case 'QUERY':
+        return update(state, { query: { $set: Object.assign({}, state.query, payload) } });
+      default:
+        return state;
+    }
+  },
+  initialState,
+  applyMiddleware(routerMiddleware(history))
+);

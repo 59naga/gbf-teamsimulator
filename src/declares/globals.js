@@ -13,14 +13,14 @@ declare type Char = {
   race: string,
   style: string,
   released: string,
-}
+};
 
 declare type State = {
-  query?: any
-}
+  query?: any,
+};
 
 declare type Action = {
   type: string,
   payload: any,
-  error?: Object
-}
+  error?: Object,
+};
