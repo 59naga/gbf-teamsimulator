@@ -5,17 +5,21 @@ import { translate } from 'react-i18next';
 import axios from 'axios';
 import upperCase from 'upper-case';
 
+import { findCharacters, getTeam, getShareUrl } from './utils';
+
 import Modal from './modal';
 import Form from './form';
 import Character from './checkbox-character';
+import Team from './team';
 
-import { findCharacters, getTeam, getShareUrl } from './utils';
+import { Result, ResultItem } from './_styles';
 
 const title = `${upperCase(NAME).replace(/-/g, ' ')} v${VERSION}`;
+const gbfWikiDataURI = 'https://gitcdn.xyz/cdn/59naga/gbf.wiki-data/master/dist/chars.json';
 
 class List extends React.Component {
   componentWillMount() {
-    axios('https://gitcdn.xyz/cdn/59naga/gbf.wiki-data/master/dist/chars.json').then(({ data: payload }) => {
+    axios(gbfWikiDataURI).then(({ data: payload }) => {
       this.props.dispatch({ type: 'INIT', payload });
     });
   }
@@ -44,41 +48,20 @@ class List extends React.Component {
         </header>
         <Modal ref={(modal) => { this.modal = modal; }} title={title} />
         <Form label={label} />
-        <section>
-          {
-            found.length ?
-              <ul>
-                {
-                  found.map(char => (
-                    <li key={char.id}>
-                      <Character char={char} />
-                    </li>
-                  ))
-                }
-              </ul>
-            : undefined
-          }
-        </section>
         {
-          team.length ?
-            <div className="team">
-              <section>
-                <header>
-                  <h1>{t('team.label')}</h1>
-                  <a href={href} target="_blank" rel="noreferrer noopener">{t('team.share')}</a>
-                </header>
-                {team.map(char => (
-                  <img
-                    key={char.id}
-                    src={`http://game-a.granbluefantasy.jp/assets_en/img_light/sp/assets/npc/f/${char.id}_01.jpg`}
-                    title={`${char.name} ${char.released}`}
-                    alt={char.name}
-                  />
-                ))}
-              </section>
-            </div>
-          : undefined
+          found.length && (
+            <Result>
+              {
+                found.map(char => (
+                  <ResultItem key={char.id}>
+                    <Character char={char} />
+                  </ResultItem>
+                ))
+              }
+            </Result>
+          )
         }
+        { team.length && <Team team={team} href={href} />}
       </div>
     );
   }

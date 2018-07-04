@@ -7,6 +7,8 @@ import { translate } from 'react-i18next';
 
 import _xor from 'lodash.xor';
 
+import { CheckboxContainer } from './_styles';
+
 class Checkbox extends React.Component {
   handleCheck() {
     const { query, type, value } = this.props;
@@ -21,7 +23,7 @@ class Checkbox extends React.Component {
 
     const componentName = `${type}_${value}`;
     return (
-      <label htmlFor={componentName}>
+      <CheckboxContainer htmlFor={componentName}>
         <input
           id={componentName}
           type="checkbox"
@@ -29,7 +31,7 @@ class Checkbox extends React.Component {
           onChange={() => { this.handleCheck(); }}
         />
         <span>{t([`form.${value}`, value])}</span>
-      </label>
+      </CheckboxContainer>
     );
   }
 }

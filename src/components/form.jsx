@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { translate } from 'react-i18next';
 
+import styled from 'styled-components';
+
 import { elements, weapons, rarities, races, styles } from '../defines';
 import AllCheckbox from './all-checkbox';
 import Checkbox from './checkbox';
@@ -16,7 +18,7 @@ class Form extends React.Component {
     const { t, label } = this.props;
     return (
       <form>
-        <ul>
+        <Inputs>
           <li>
             <AllCheckbox label="Rarity" type="rarity" value={rarities.join(SEPARATOR)} />
             {rarities.map(value => <Checkbox type="rarity" key={value} value={value} />)}
@@ -37,7 +39,7 @@ class Form extends React.Component {
             <AllCheckbox label="Style" type="style" value={styles.join(SEPARATOR)} />
             {styles.map(value => <Checkbox type="style" key={value} value={value} />)}
           </li>
-        </ul>
+        </Inputs>
         <footer>
           <button onClick={() => { this.handleReset(); }}>{t('form.reset')}</button>
           <span>{label}</span>
@@ -51,5 +53,10 @@ Form.propTypes = {
   label: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
+
+const Inputs = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
 
 export default connect(() => ({}))(translate()(Form));
