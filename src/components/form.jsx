@@ -28,6 +28,7 @@ class Component extends React.Component<Props> {
   modal: ?{ getWrappedInstance: Function };
   render() {
     const { t, count, action } = this.props;
+    const disabled = window.location.hash.length <= 2;
     return (
       <Form>
         <Inputs>
@@ -53,7 +54,7 @@ class Component extends React.Component<Props> {
           </li>
         </Inputs>
         <FormFooter>
-          <button onClick={() => { window.open(action, '_blank'); }}>{t('team.share')}</button>
+          <button disabled={disabled} onClick={() => { window.open(action, '_blank'); }}>{t('team.share')}</button>
           <span>{count}</span>
           <button onClick={() => { this.handleReset(); }}>
             {t('form.reset')}

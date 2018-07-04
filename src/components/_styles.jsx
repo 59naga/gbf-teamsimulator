@@ -38,16 +38,17 @@ export const ResultItem = styled.li`
 `;
 
 export const Form = styled.div`
-
+  font-size: larger
 `;
 export const FormFooter = styled.footer`
   display: flexbox;
+  align-items: center;
   justify-content: center;
 
   > * {
     display: block;
     flex: 1;
-    min-width: 25%;
+    min-width: 3.6em;
     margin: 0 .2em
 
     text-align: center;
