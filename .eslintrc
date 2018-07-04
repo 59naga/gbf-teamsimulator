@@ -3,8 +3,8 @@ parser: babel-eslint
 extends:
   - airbnb
   - plugin:flowtype/recommended
-plugins:
-  - flowtype
+  - plugin:prettier/recommended
+  - prettier/react
 settings:
   flowtype:
     onlyFilesWithFlowAnnotation: true
@@ -33,3 +33,11 @@ rules:
     -
       ObjectExpression:
         consistent: true
+
+  prettier/prettier:
+    - error
+    -
+      printWidth: 100
+      semi: true
+      singleQuote: true
+      trailingComma: es5
