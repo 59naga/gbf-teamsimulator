@@ -1,13 +1,22 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { StatelessFunctionalComponent } from 'react';
 import { translate } from 'react-i18next';
 
-const Team = ({ t, team, href }) => (
+type Props = {
+  t: Function,
+  team: Array<Char>,
+  href: string,
+};
+
+const Team: StatelessFunctionalComponent<Props> = ({ t, team, href }: Props) => (
   <div className="team">
     <section>
       <header>
         <h1>{t('team.label')}</h1>
-        <a href={href} target="_blank" rel="noreferrer noopener">{t('team.share')}</a>
+        <a href={href} target="_blank" rel="noreferrer noopener">
+          {t('team.share')}
+        </a>
       </header>
       {team.map(char => (
         <img
@@ -20,10 +29,5 @@ const Team = ({ t, team, href }) => (
     </section>
   </div>
 );
-Team.propTypes = {
-  t: PropTypes.func.isRequired,
-  team: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  href: PropTypes.string.isRequired,
-};
 
 export default translate()(Team);

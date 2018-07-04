@@ -1,5 +1,5 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { stringify } from 'querystring';
@@ -9,7 +9,15 @@ import _xor from 'lodash.xor';
 
 import { CheckboxContainer } from './_styles';
 
-class Checkbox extends React.Component {
+type Props = {
+  query: {},
+  t: Function,
+  type: string,
+  value: string,
+  dispatch: Function,
+};
+
+class Checkbox extends React.Component<Props> {
   handleCheck() {
     const { query, type, value } = this.props;
     const data = query[type] ? query[type].split(SEPARATOR) : [];
@@ -28,22 +36,14 @@ class Checkbox extends React.Component {
           id={componentName}
           type="checkbox"
           checked={data.indexOf(value) !== -1}
-          onChange={() => { this.handleCheck(); }}
+          onChange={() => {
+            this.handleCheck();
+          }}
         />
         <span>{t([`form.${value}`, value])}</span>
       </CheckboxContainer>
     );
   }
 }
-Checkbox.propTypes = {
-  query: PropTypes.shape(),
-  t: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-Checkbox.defaultProps = {
-  query: {},
-};
 
 export default connect(state => state)(translate()(Checkbox));

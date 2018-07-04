@@ -1,5 +1,7 @@
 // @flow
 declare var SEPARATOR: string;
+declare var NAME: string;
+declare var VERSION: string;
 
 declare type Char = {
   id: string,

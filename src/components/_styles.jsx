@@ -27,3 +27,8 @@ export const Result = styled.ul`
 export const ResultItem = styled.li`
   display: inline-block;
 `;
+
+export const Inputs = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;

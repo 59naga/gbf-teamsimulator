@@ -1,11 +1,20 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { stringify } from 'querystring';
 import { translate } from 'react-i18next';
 
-class AllCheckbox extends React.Component {
+type Props = {
+  t: Function,
+  type: string,
+  value: string,
+  dispatch: Function,
+  label: string,
+  query: {},
+};
+
+class AllCheckbox extends React.Component<Props> {
   handleCheck() {
     const { query, type, value, dispatch } = this.props;
 
@@ -23,24 +32,14 @@ class AllCheckbox extends React.Component {
           id={type}
           type="checkbox"
           checked={data.length > 0}
-          onChange={() => { this.handleCheck(); }}
+          onChange={() => {
+            this.handleCheck();
+          }}
         />
         <span>{this.props.t([`form.${label}`, label])}</span>
       </label>
     );
   }
 }
-AllCheckbox.propTypes = {
-  label: PropTypes.string,
-  query: PropTypes.shape(),
-  t: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-AllCheckbox.defaultProps = {
-  label: 'All',
-  query: {},
-};
 
 export default connect(state => state)(translate()(AllCheckbox));

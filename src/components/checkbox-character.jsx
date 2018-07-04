@@ -1,16 +1,23 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { stringify } from 'querystring';
 
 import _xor from 'lodash.xor';
 
-import { CheckboxContainer, Checkbox, Thumbnail } from './_styles';
+import { Checkbox, Thumbnail } from './_styles';
 
 // char_idが同じキャラは同時に編成に入れられないため、クリック時に弾く
 
-class Character extends React.Component {
+type Props = {
+  query: { team: string },
+  aliases: {},
+  char: Char,
+  dispatch: Function,
+};
+
+class Character extends React.Component<Props> {
   handleCheck() {
     const { query, char, dispatch } = this.props;
     const data = query.team ? query.team.split(SEPARATOR) : [];
@@ -50,13 +57,15 @@ class Character extends React.Component {
 
       return prev;
     }, false);
-    
+
     return (
       <label htmlFor={componentName}>
         <Checkbox
           id={componentName}
           checked={checked}
-          onChange={() => { this.handleCheck(); }}
+          onChange={() => {
+            this.handleCheck();
+          }}
         />
         <Thumbnail
           checked={checked}
@@ -68,14 +77,5 @@ class Character extends React.Component {
     );
   }
 }
-Character.propTypes = {
-  query: PropTypes.shape(),
-  aliases: PropTypes.shape().isRequired,
-  char: PropTypes.shape().isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-Character.defaultProps = {
-  query: {},
-};
 
 export default connect(state => state)(Character);

@@ -1,16 +1,22 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { translate } from 'react-i18next';
-
-import styled from 'styled-components';
 
 import { elements, weapons, rarities, races, styles } from '../defines';
 import AllCheckbox from './all-checkbox';
 import Checkbox from './checkbox';
 
-class Form extends React.Component {
+import { Inputs } from './_styles';
+
+type Props = {
+  t: Function,
+  label: string,
+  dispatch: Function,
+};
+
+class Form extends React.Component<Props> {
   handleReset() {
     this.props.dispatch(push('/'));
   }
@@ -41,22 +47,18 @@ class Form extends React.Component {
           </li>
         </Inputs>
         <footer>
-          <button onClick={() => { this.handleReset(); }}>{t('form.reset')}</button>
+          <button
+            onClick={() => {
+              this.handleReset();
+            }}
+          >
+            {t('form.reset')}
+          </button>
           <span>{label}</span>
         </footer>
       </form>
     );
   }
 }
-Form.propTypes = {
-  t: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-
-const Inputs = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
 
 export default connect(() => ({}))(translate()(Form));
