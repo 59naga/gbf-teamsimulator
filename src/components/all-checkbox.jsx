@@ -5,6 +5,8 @@ import { push } from 'react-router-redux';
 import { stringify } from 'querystring';
 import { translate } from 'react-i18next';
 
+import { CheckboxContainer, CheckboxInput } from './_styles';
+
 type Props = {
   t: Function,
   type: string,
@@ -14,7 +16,7 @@ type Props = {
   query: {},
 };
 
-class AllCheckbox extends React.Component<Props> {
+class Component extends React.Component<Props> {
   handleCheck() {
     const { query, type, value, dispatch } = this.props;
 
@@ -27,19 +29,18 @@ class AllCheckbox extends React.Component<Props> {
     const data = query[type] || '';
 
     return (
-      <label className="all-check" htmlFor={type}>
-        <input
+      <CheckboxContainer primary className="all-check" htmlFor={type}>
+        <CheckboxInput
           id={type}
-          type="checkbox"
           checked={data.length > 0}
           onChange={() => {
             this.handleCheck();
           }}
         />
         <span>{this.props.t([`form.${label}`, label])}</span>
-      </label>
+      </CheckboxContainer>
     );
   }
 }
 
-export default connect(state => state)(translate()(AllCheckbox));
+export default connect(state => state)(translate()(Component));

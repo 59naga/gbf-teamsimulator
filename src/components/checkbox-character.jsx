@@ -6,7 +6,7 @@ import { stringify } from 'querystring';
 
 import _xor from 'lodash.xor';
 
-import { Checkbox, Thumbnail } from './_styles';
+import { CharacterCheckbox, Thumbnail } from './_styles';
 
 // char_idが同じキャラは同時に編成に入れられないため、クリック時に弾く
 
@@ -17,7 +17,7 @@ type Props = {
   dispatch: Function,
 };
 
-class Character extends React.Component<Props> {
+class Component extends React.Component<Props> {
   handleCheck() {
     const { query, char, dispatch } = this.props;
     const data = query.team ? query.team.split(SEPARATOR) : [];
@@ -60,7 +60,7 @@ class Character extends React.Component<Props> {
 
     return (
       <label htmlFor={componentName}>
-        <Checkbox
+        <CharacterCheckbox
           id={componentName}
           checked={checked}
           onChange={() => {
@@ -78,4 +78,4 @@ class Character extends React.Component<Props> {
   }
 }
 
-export default connect(state => state)(Character);
+export default connect(state => state)(Component);

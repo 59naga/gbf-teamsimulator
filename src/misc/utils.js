@@ -2,7 +2,7 @@
 import _filter from 'lodash.filter';
 import _find from 'lodash.find';
 
-import i18n from '../i18n';
+import i18n from '../misc/i18n';
 
 export default null;
 export function findCharacters(characters: Array<Char>, query: any = {}): Array<Char> {

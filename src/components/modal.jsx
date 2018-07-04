@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 
 import ReactModal from 'react-modal';
 
-import i18n from '../i18n';
+import i18n from '../misc/i18n';
 
 const githubUrl = 'https://github.com/59naga/gbf-teamsimulator';
 const twitterUrl = 'https://twitter.com/horse_n_game';
@@ -18,7 +18,7 @@ type State = {
   showModal: boolean,
 };
 
-class Modal extends React.Component<Props, State> {
+class Component extends React.Component<Props, State> {
   constructor() {
     super();
     this.state = { showModal: false };
@@ -40,6 +40,9 @@ class Modal extends React.Component<Props, State> {
         isOpen={this.state.showModal}
         onRequestClose={this.handleCloseModal}
         shouldCloseOnOverlayClick
+
+        // https://github.com/reactjs/react-modal/issues/98
+        style={{ overlay: { zIndex: 1000 } }}
       >
         <header>
           <button onClick={this.handleCloseModal}>☓ Close</button>
@@ -68,4 +71,4 @@ export default connect(
   null,
   null,
   { withRef: true },
-)(translate(undefined, { withRef: true })(Modal));
+)(translate(undefined, { withRef: true })(Component));

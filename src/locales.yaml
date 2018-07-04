@@ -1,20 +1,22 @@
 en:
   language: Language
   developer: Developer
+  options: Options
   greet: Easy to way for speciality search. I noticed the existence of "Collection Tracker" later...
   loading: now loading...
-  found: '{{found}} characters found'
+  found: '{{found}} chars found'
   notfound: no results found
   form:
     reset: All Reset
   team:
     label: MY TEAM
-    share: Share this
+    share: Share
     tweet: Check out my team!
 
 ja:
   language: 言語
   developer: 開発者
+  options: 設定
   greet: 得意武器検索めんどくさいから作った
   loading: 読み込み中
   found: '{{found}} 人'

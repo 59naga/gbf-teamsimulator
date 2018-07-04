@@ -3,27 +3,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { translate } from 'react-i18next';
+import upperCase from 'upper-case';
 
-import { elements, weapons, rarities, races, styles } from '../defines';
+import { elements, weapons, rarities, races, styles } from '../misc/defines';
 import AllCheckbox from './all-checkbox';
 import Checkbox from './checkbox';
+import Modal from './modal';
 
-import { Inputs } from './_styles';
+import { Form, FormFooter, Inputs } from './_styles';
 
 type Props = {
   t: Function,
-  label: string,
+  count: string,
+  action: string,
   dispatch: Function,
 };
 
-class Form extends React.Component<Props> {
+const title = `${upperCase(NAME).replace(/-/g, ' ')} v${VERSION}`;
+
+class Component extends React.Component<Props> {
   handleReset() {
     this.props.dispatch(push('/'));
   }
+  modal: ?{ getWrappedInstance: Function };
   render() {
-    const { t, label } = this.props;
+    const { t, count, action } = this.props;
     return (
-      <form>
+      <Form>
         <Inputs>
           <li>
             <AllCheckbox label="Rarity" type="rarity" value={rarities.join(SEPARATOR)} />
@@ -46,19 +52,25 @@ class Form extends React.Component<Props> {
             {styles.map(value => <Checkbox type="style" key={value} value={value} />)}
           </li>
         </Inputs>
-        <footer>
-          <button
-            onClick={() => {
-              this.handleReset();
-            }}
-          >
+        <FormFooter>
+          <button onClick={() => { window.open(action, '_blank'); }}>{t('team.share')}</button>
+          <span>{count}</span>
+          <button onClick={() => { this.handleReset(); }}>
             {t('form.reset')}
           </button>
-          <span>{label}</span>
-        </footer>
-      </form>
+          <Modal ref={(modal: any) => { this.modal = modal; }} title={title} />
+          <button
+            onClick={() => {
+              if (this.modal == null) return;
+              this.modal.getWrappedInstance().getWrappedInstance().handleOpenModal();
+            }}
+          >
+            {t('options')}
+          </button>
+        </FormFooter>
+      </Form>
     );
   }
 }
 
-export default connect(() => ({}))(translate()(Form));
+export default connect(() => ({}))(translate()(Component));

@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import LngDetector from 'i18next-browser-languagedetector';
-import locales from './locales.yaml';
+import locales from '../locales.yaml';
 
 const i18n = i18next.use(LngDetector).init({ fallbackLng: 'en', fallbackNS: 'translation' });
 

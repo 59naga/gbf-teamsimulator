@@ -7,7 +7,7 @@ import { translate } from 'react-i18next';
 
 import _xor from 'lodash.xor';
 
-import { CheckboxContainer } from './_styles';
+import { CheckboxContainer, CheckboxInput } from './_styles'
 
 type Props = {
   query: {},
@@ -17,7 +17,7 @@ type Props = {
   dispatch: Function,
 };
 
-class Checkbox extends React.Component<Props> {
+class Component extends React.Component<Props> {
   handleCheck() {
     const { query, type, value } = this.props;
     const data = query[type] ? query[type].split(SEPARATOR) : [];
@@ -32,9 +32,8 @@ class Checkbox extends React.Component<Props> {
     const componentName = `${type}_${value}`;
     return (
       <CheckboxContainer htmlFor={componentName}>
-        <input
+        <CheckboxInput
           id={componentName}
-          type="checkbox"
           checked={data.indexOf(value) !== -1}
           onChange={() => {
             this.handleCheck();
@@ -46,4 +45,4 @@ class Checkbox extends React.Component<Props> {
   }
 }
 
-export default connect(state => state)(translate()(Checkbox));
+export default connect(state => state)(translate()(Component));
