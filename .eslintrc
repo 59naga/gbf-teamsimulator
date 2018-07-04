@@ -5,6 +5,8 @@ extends:
   - plugin:flowtype/recommended
   - plugin:prettier/recommended
   - prettier/react
+plugins:
+  - flowtype
 settings:
   flowtype:
     onlyFilesWithFlowAnnotation: true
