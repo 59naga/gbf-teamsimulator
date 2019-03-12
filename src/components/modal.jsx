@@ -56,7 +56,7 @@ class Component extends React.Component<Props, State> {
           <pre>{t('greet')}</pre>
           <p>
             {t('developer')}:
-            <a href={twitterUrl} target="_blank" rel="noreferrer noopener"> ゴブロのケツ（獄長）</a>
+            <a href={twitterUrl} target="_blank" rel="noreferrer noopener"> 獄長 </a>
             ／
             <a href={githubUrl} target="_blank" rel="noreferrer noopener"> github </a>
           </p>
