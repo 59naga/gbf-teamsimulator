@@ -7,6 +7,7 @@ import { stringify } from 'querystring';
 import _xor from 'lodash.xor';
 
 import { CharacterCheckbox, Thumbnail } from './_styles';
+import { elements as ELEMENTS } from '../misc/defines';
 
 // char_idが同じキャラは同時に編成に入れられないため、クリック時に弾く
 
@@ -58,6 +59,13 @@ class Component extends React.Component<Props> {
       return prev;
     }, false);
 
+    let any = '';
+    const elements: string[] = query.element ? query.element.split(SEPARATOR) : [];
+    if (char.element === 'Any' && elements.length) {
+      const [element] = elements;
+      any = `_0${ELEMENTS.indexOf(element) + 1}`;
+    }
+
     return (
       <label htmlFor={componentName}>
         <CharacterCheckbox
@@ -69,7 +77,7 @@ class Component extends React.Component<Props> {
         />
         <Thumbnail
           checked={checked}
-          src={`http://game-a.granbluefantasy.jp/assets/img_light/sp/assets/npc/m/${char.id}_01.jpg`}
+          src={`http://game-a.granbluefantasy.jp/assets/img_light/sp/assets/npc/m/${char.id}_01${any}.jpg`}
           title={`${char.name} ${char.released}`}
           alt={char.name}
         />
