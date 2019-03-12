@@ -12,7 +12,7 @@ import Team from '../components/team';
 
 import { App, Head, Middle, Foot, Result, ResultItem } from './_styles';
 
-const gbfWikiDataURI = 'https://gitcdn.xyz/cdn/59naga/gbf.wiki-data/master/dist/chars.json';
+const gbfWikiDataURI = 'https://unpkg.com/gbf-data@0.0.26/dist/chars.json';
 
 type Props = {
   query: { team: string },
