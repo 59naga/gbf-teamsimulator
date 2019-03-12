@@ -21,19 +21,16 @@ export function findCharacters(characters: Array<Char>, query: any = {}): Array<
     if (rarities.indexOf(char.rarity) === -1) {
       return;
     }
-    if (elements.indexOf(char.element) === -1) {
+    if ((char.element !== 'Any' && elements.indexOf(char.element) === -1) || elements.length === 0) {
       return;
     }
-    if (!_filter(weapons, value => char.specialty.match(value)).join('')) {
+    if (char.id !== '3040164000' && !_filter(weapons, value => char.specialty.match(value)).join('')) {
       return;
     }
-    if (races.indexOf(char.race) === -1) {
+    if (char.id !== '3040164000' && races.indexOf(char.race) === -1) {
       return;
     }
-    if (styles.indexOf(char.style) === -1) {
-      return;
-    }
-    if (!char.name) {
+    if (char.id !== '3040164000' && styles.indexOf(char.style) === -1) {
       return;
     }
     found.push(char);
